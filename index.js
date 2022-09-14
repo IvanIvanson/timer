@@ -88,8 +88,5 @@
        
     })
     
-     btnStop.addEventListener('click', function(){
-        
-     })
    
 }
