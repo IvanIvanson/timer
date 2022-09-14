@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+
+<style>
+    .container {
+        width: 300px;
+        height: 300px;
+        margin: 50px auto;
+        background: #555;
+        border-radius: 30px;
+
+        box-shadow: inset 0 0 20px #222;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    h2 {
+        color: orange;
+        margin-bottom: 0;
+        letter-spacing: 6px;
+        text-shadow: -1px -1px 1px #333;
+        font-size: 40px;
+        font-weight: 400;
+    }
+
+    #bd {
+        width: 150px;
+        height: 50px;
+        border-radius: 20px;
+        border: solid #333;
+        margin: 50px auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: inset 0 0 20px #222;
+    }
+
+    #bd>p {
+        font-size: 35px;
+        font-weight: 300;
+        color: orange;
+
+    }
+
+    .blink {
+        animation: animate 1s linear infinite;
+
+    }
+
+    @keyframes animate {
+        0% {
+            opacity: 1;
+            text-shadow: -1px -1px 1px #333;
+        }
+
+        50% {
+            opacity: .9;
+
+        }
+
+        100% {
+            opacity: 1;
+            text-shadow: 1px 1px 1px #333;
+
+        }
+    }
+
+    .rul-block {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .btn {
+        padding: 5px 20px;
+        border-radius: 10px;
+        border: solid black .5px;
+        background: transparent;
+        color: white;
+        box-shadow: inset 0 0 20px #222;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <h2>TIMER</h2>
+        <div id="bd">
+            <p id="timer">0</p>
+        </div>
+
+        <div class="rul-block">
+            <button class="btn" id="start">Start</button>
+            <button class="btn" id="stop">Stop</button>
+        </div>
+    </div>
+    <script>
+        const btnStart = document.querySelector("#start");
+        const btnStop = document.querySelector("#stop");
+        let a = 1;
+        let timer;
+        let b = document.getElementById("bd")
+        let p = document.getElementById("timer");
+
+
+        function myTimer() {
+            p.classList.add("blink")
+            p.innerHTML = `${a} s`;
+            let min = Math.floor(a / 60)
+            a++;
+            if (a >= 60) {
+                p.innerHTML = `${min}min:${a - (min * 60)}s`;
+                p.style.fontSize = 20 + 'px';
+            }
+            timer = setTimeout(myTimer, 1000);
+
+            btnStop.addEventListener("click", function () {
+                clearTimeout(timer);
+                p.classList.remove("blink")
+            })
+        }
+
+        // --------
+
+        btnStart.addEventListener("click", myTimer)
+
+
+    </script>
+</body>
+
+</html>
