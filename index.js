@@ -39,7 +39,19 @@
          clearInterval(timer);
          p.classList.remove("blink");                
          createElement(`${info} - ${a-1}s`)
-                                       
+              
+// ------------------
+     let storage = document.querySelector(".storage");
+     let allOut = document.querySelectorAll(".infodiv");
+         allOut.forEach((item) => {
+ 
+             localStorage.setItem("myKey", item.textContent);
+             let localValue = localStorage.getItem("myKey");
+             storage.innerText = localValue;
+   
+         })
+// ---------------
+
      });
     
      //-----------
@@ -64,12 +76,20 @@
     });
    
     //---------
+     
     btnClear.addEventListener("click", function(){
     let allOut = document.querySelectorAll(".infodiv");
-    allOut.forEach((item) => {
-        item.remove()
+        allOut.forEach((item) => {
+            // ------
+        item.remove();
+            // -----
+           
     })
        
     })
+    
+     btnStop.addEventListener('click', function(){
+        
+     })
    
 }
