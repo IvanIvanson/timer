@@ -10,6 +10,7 @@
     let timer;
     let b = document.getElementById("bd")
     let p = document.getElementById("timer");   
+    let arr = [];
     //----------
     
       function createElement(text){
@@ -32,7 +33,11 @@
       }
         //---------------
     
-     btnStop.addEventListener("click", function(){
+     btnStop.addEventListener("click", function () {
+          btnStop.disabled = true;
+   btnStart.disabled = false;
+   btnStart.classList.remove('disabled');
+   btnStop.classList.add('disabled');
      let inp = document.querySelector("#inp");
      let info = inp.value;
      inp.value = '';
@@ -41,20 +46,29 @@
          createElement(`${info} - ${a-1}s`)
               
 // ------------------
-     let storage = document.querySelector(".storage");
-     let allOut = document.querySelectorAll(".infodiv");
-         allOut.forEach((item) => {
+    //  let storage = document.querySelector(".storage");
+         
+       
+ let allOut = document.querySelectorAll(".infodiv");       
+ allOut.forEach((item) => {
  
-             localStorage.setItem("myKey", item.textContent);
-             let localValue = localStorage.getItem("myKey");
-             storage.innerText = localValue;
-   
-         })
+           arr.push( item.textContent);
+            //  let localValue = localStorage.getItem("myKey");
+            //  storage.innerText = localValue;
+    //  localStorage.setItem("myKey", item.textContent.toString());
+             
+     localStorage.setItem("myKey", arr);
+    
+         });
+         
+         
+          
 // ---------------
 
      });
     
      //-----------
+    //  let storage = document.querySelector(".storage");
     
      btnReset.addEventListener("click", function(){
      let inp = document.querySelector("#inp");
@@ -65,26 +79,37 @@
          p.classList.remove("blink");
         
          p.innerText = a + ' s';
-        
+       
      })
            
        // -------
        
     btnStart.addEventListener("click", function(){
-   
+   btnStop.disabled = false;
+   btnStart.disabled = true;
+        btnStart.classList.add('disabled');
+   btnStop.classList.remove('disabled');
+
        timer = setInterval(myTimer, 1000);
     });
    
     //---------
-     
+    
     btnClear.addEventListener("click", function(){
-    let allOut = document.querySelectorAll(".infodiv");
-        allOut.forEach((item) => {
-            // ------
+      let allOut = document.querySelectorAll(".infodiv");
+     let storage = document.querySelector(".storage");
+
+      allOut.forEach((item) => {
+        // ------
         item.remove();
-            // -----
-           
-    })
+        // -----
+      });
+      // ---------
+        
+        let localValue = localStorage.getItem("myKey");
+        arr.push(localValue)
+        let x = arr.length;
+        storage.innerText = arr[0];
        
     })
     
